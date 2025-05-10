@@ -1,4 +1,4 @@
-// Pages/Providers/Delete.cshtml.cs
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;

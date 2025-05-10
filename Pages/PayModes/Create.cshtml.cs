@@ -1,4 +1,4 @@
-// Pages/PayModes/Create.cshtml.cs
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SupermarketWEB.Data;
