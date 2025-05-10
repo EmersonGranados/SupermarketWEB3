@@ -1,0 +1,31 @@
+﻿@page
+@model SupermarketWEB.Pages.PayModes.IndexModel
+@{
+    ViewData["Title"] = "Pay Modes";
+}
+
+<h1>Pay Modes</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Observation</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PayModes)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Observation)</td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-page="Create" class="btn btn-success">Create New</a>
