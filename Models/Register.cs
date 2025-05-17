@@ -2,7 +2,7 @@
 
 namespace SupermarketWEB.Models
 {
-    public class Register
+    public class RegisterModel
     {
         [Required(ErrorMessage = "El email es obligatorio")]
         [EmailAddress(ErrorMessage = "Formato de email inválido")]
@@ -18,3 +18,4 @@ namespace SupermarketWEB.Models
         public string ConfirmPassword { get; set; }
     }
 }
+
