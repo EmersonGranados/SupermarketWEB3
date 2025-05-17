@@ -30,12 +30,11 @@ namespace SupermarketWEB.Pages.Account
                 return Page();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == User.Email);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == User.Email);
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(User.Password, user.Password))
             {
-                ErrorMessage = "Credenciales inválidas";
+                ModelState.AddModelError(string.Empty, "Credenciales inválidas");
                 return Page();
             }
 
@@ -48,7 +47,8 @@ namespace SupermarketWEB.Pages.Account
             };
 
             var claimsIdentity = new ClaimsIdentity(
-                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                claims,
+                "MyCookieAuth");
 
             var authProperties = new AuthenticationProperties
             {
@@ -58,7 +58,7 @@ namespace SupermarketWEB.Pages.Account
 
             // Iniciar sesión
             await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
+                "MyCookieAuth",
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
 
