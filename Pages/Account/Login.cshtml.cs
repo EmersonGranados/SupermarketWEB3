@@ -31,11 +31,11 @@ namespace SupermarketWEB.Pages.Account
             }
 
             var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == User.Email && u.Password == User.Password);
+                .FirstOrDefaultAsync(u => u.Email == User.Email);
 
-            if (user == null)
+            if (user == null || !BCrypt.Net.BCrypt.Verify(User.Password, user.Password))
             {
-                ErrorMessage = "Credenciales inválidas. Por favor intente nuevamente.";
+                ErrorMessage = "Credenciales inválidas";
                 return Page();
             }
 

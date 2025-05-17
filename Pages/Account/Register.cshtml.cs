@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using SupermarketWEB.Models;
 
 namespace SupermarketWEB.Pages.Account
 {
+    [AllowAnonymous]
     public class RegisterModel : PageModel
     {
         
@@ -47,8 +49,8 @@ namespace SupermarketWEB.Pages.Account
              
                 var newUser = new User
                 {
-                    Email = RegisterData.Email, 
-                    Password = RegisterData.Password 
+                    Email = RegisterData.Email,
+                    Password = BCrypt.Net.BCrypt.HashPassword(RegisterData.Password)
                 };
 
                 _context.Users.Add(newUser);
