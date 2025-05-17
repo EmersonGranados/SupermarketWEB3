@@ -1,13 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using SupermarketWEB.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Threading.Tasks;
+using SupermarketWEB.Models;
 
 
 namespace SupermarketWEB
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +33,36 @@ namespace SupermarketWEB
             builder.Services.AddAuthorization();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<SupermarketContext>();
+
+                  
+                    context.Database.EnsureCreated();
+
+                   
+                    if (!context.Users.Any())
+                    {
+                        
+                        context.Users.Add(new User
+                        {
+                            Email = "emer29granados@gmail.com",
+                            Password = "admin123" 
+                        });
+
+                        await context.SaveChangesAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "Error al inicializar la base de datos");
+                }
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
