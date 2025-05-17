@@ -9,6 +9,7 @@ namespace SupermarketWEB
 {
     public class Program
     {
+        //PROYECTO LISTO Y FUNCIONAL 17/05/2025 12:02 A.M
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
